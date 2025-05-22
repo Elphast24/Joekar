@@ -1,0 +1,59 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+package-lock.json # If you're using Yarn and don't want to commit package-lock.json
+# or yarn.lock # If you're using npm and don't want to commit yarn.lock
+
+# Build artifacts
+dist/
+build/
+.cache/
+*.log
+*.tmp
+*.bak
+*.swp # Vim swap files
+*.swo # Vim swap files
+
+# Environment variables
+.env
+.env.*
+!.env.example # Keep example files for environment variables if you have them
+# You might want to ignore specific environment files like:
+# .env.development.local
+# .env.test.local
+# .env.production.local
+
+# IDE and Editor files
+.vscode/ # VS Code
+.idea/ # IntelliJ IDEA
+*.iml # IntelliJ IDEA module files
+.DS_Store # macOS
+Thumbs.db # Windows
+desktop.ini # Windows
+.project # Eclipse
+.settings/ # Eclipse
+.c9/ # Cloud9
+*.sublime-project
+*.sublime-workspace
+.atom/ # Atom
+
+# OS generated files
+.DS_Store
+.localized
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Test and coverage reports
+coverage/
+.nyc_output/
+
+# Database files (if not managed by migrations)
+*.

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Shop Management</title>
+    <link rel="stylesheet" href="/style.css"> <!--Node purposes-->
+    <!-- <link rel="stylesheet" href="style.css"> live server -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/script.js"></script>
+
+</head>
+<body bgcolor="black">
+
+    <div class="all">
+    <header>
+        <div class="container">
+            <h1>Joekar Electrical Enterprise</h1>
+        </div>
+    </header>
+
+    <div class="controls">
+        <div class="addItem" onclick="showAdd()"><i data-lucide="plus-circle"></i>
+            <hr width="90%" style="margin: auto;">
+        <span> Add Item</span>
+        
+        </div>
+        <div class="recordPurchase" onclick="showRecord()">
+            <i data-lucide="file-text"></i>
+            <hr width="90%" style="margin: auto;">
+        <span> Record Purchase</span>
+        </div>
+        <div class="checkInventory" onclick="showInventory()"><i data-lucide="box"></i>
+            <hr width="90%" style="margin: auto;">
+        <span> Check Inventory</span>
+        </div>
+        <div class="makeSales" onclick="showSales()"><i data-lucide="banknote"></i>
+          <hr width="90%" style="margin: auto;">
+      <span> Make Sales</span>
+      </div>
+    </div>
+    
+    <div class="main-container" id="contain">
+      <div id="close" onclick="closeMenu()"><i data-lucide="x"></i></div>
+        <div class="content-wrapper">
+            <!-- Add Item Section -->
+            <div class="card" id="addItem">
+                <h2 class="card-title">Add New Item</h2>
+                <form id="add-item-form" action="http://localhost:3000/api/" method="POST">
+                  <div class="form-control">
+                    <label class="form-label" for="item-name">Item Name</label>
+                    <input type="text" class="form-input" placeholder="Enter Item name" id="item-name" name="name" required>
+                  </div>
+                
+                  <div class="form-control">
+                    <label class="form-label" for="item-price">Price</label>
+                    <input type="number" class="form-input" placeholder="Enter Item Price" id="item-price" name="price" step="any" required>
+                  </div>
+                
+                  <div class="form-control">
+                    <label class="form-label" for="item-stock">Stock</label>
+                    <input type="number" class="form-input" placeholder="Enter Quantity" id="item-stock" name="stock" required>
+                  </div>
+                
+                  <button type="submit" class="btn">Add Item</button>
+                </form>
+                
+            </div>
+            
+            <!-- Record Purchase Section -->
+            <div class="card" id="recordPurchase">
+                <h2 class="card-title">Record Purchase</h2>
+                <form id="purchase-form" action="http://localhost:3000/api/purchases" method="POST">
+                  <div class="form-control">
+                    <label class="form-label" for="purchase-item">Select Item</label>
+                    <input type="text" id="purchase-item" name="itemName" placeholder="Enter item name" class="form-input" required>
+                  </div>
+                
+                  <div class="form-control">
+                    <label class="form-label" for="purchase-quantity">Quantity</label>
+                    <input type="number" id="purchase-quantity" name="quantity" class="form-input" min="1" placeholder="1" required>
+                  </div>
+                
+                  <button type="submit" class="btn">Record Purchase</button>
+                </form>
+                
+                
+                
+                
+                <!-- <div class="result-section">
+                    <h3 style="margin-bottom: 1rem; color: var(--text-dark);">Purchase Result</h3>
+                    
+                    <div class="result-item">
+                      <span class="result-label">ID:</span>
+                      <span class="result-value" id="result-item">-</span>
+                    </div>
+                    
+                    <div class="result-item">
+                      <span class="result-label">Item Name:</span>
+                      <span class="result-value" id="result-quantity">-</span>
+                    </div>
+                    
+                    <div class="result-item">
+                      <span class="result-label">Unit Price:</span>
+                      <span class="result-value" id="result-price">-</span>
+                    </div>
+                    
+                    <div class="result-item">
+                      <span class="result-label">Quantity:</span>
+                      <span class="result-value" id="result-total">-</span>
+                    </div>
+                    
+                    <div class="result-item">
+                      <span class="result-label">Total Amount:</span>
+                      <span class="result-value" id="result-amount">-</span>
+                    </div>
+                    
+                    <div class="result-item">
+                      <span class="result-label">Remaining Stock:</span>
+                      <span class="result-value" id="result-remaining">-</span>
+                    </div>
+                    
+                </div> -->
+            </div>
+            
+            <!-- Inventory Section -->
+            <div class="card" id="checkInventory">
+              <div class="export-buttons">
+                <button class="export-btn excel-btn" onclick="exportToExcel()">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                    <line x1="8" y1="16" x2="16" y2="16"></line>
+                    <line x1="8" y1="8" x2="11" y2="8"></line>
+                  </svg>
+                  Export to Excel
+                </button>
+                <button class="export-btn pdf-btn" onclick="exportToPDF()">
+                  <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                  Export to PDF
+                </button>
+              </div>
+              
+              <div class="table-container">
+                <table id="purchaseTable">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th style="text-align: left;">Item Name</th>
+                      <th>Unit Price</th>
+                      <th>Quantity</th>
+                      <!-- <th>Remaining Stock</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{%Rows%}}
+                  </tbody>
+                </table>
+              </div>
+              </div>
+
+              <div class="card" id="makeSales">
+                <div class="export-buttons">
+                  <button class="export-btn excel-btn" onclick="exportSalesToExcel()">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="8" y1="12" x2="16" y2="12"></line>
+                      <line x1="8" y1="16" x2="16" y2="16"></line>
+                      <line x1="8" y1="8" x2="11" y2="8"></line>
+                    </svg>
+                    Export to Excel
+                  </button>
+                  <button class="export-btn pdf-btn" onclick="exportSalesToPDF()">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    Export to PDF
+                  </button>
+                </div>
+              
+                <div class="table-container">
+                  <table id="makeSalesTable">
+                    <!-- <form id="filterForm" style="margin-bottom: 1rem;">
+                      <label for="filterDate">Filter by Date:</label>
+                      <input type="date" id="filterDate" name="date" required>
+                      <button type="submit">Apply</button>
+                    </form> -->
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th style="text-align: left;">Item Name</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Total Amount</th>
+                        <th>Remaining Stock</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {{%SalesRow%}}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+
+            
+            </div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <!-- <div class="card" style="display: none;">
+      <h2 class="card-title">Current Inventory</h2>
+        
+        <div class="export-buttons">
+          <button class="export-btn excel-btn" onclick="exportToExcel()">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+              <line x1="8" y1="16" x2="16" y2="16"></line>
+              <line x1="8" y1="8" x2="11" y2="8"></line>
+            </svg>
+            Export to Excel
+          </button>
+          <button class="export-btn pdf-btn" onclick="exportToPDF()">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Export to PDF
+          </button>
+        </div>
+        
+        <div class="table-container">
+          <table id="purchaseTable">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Amount</th>
+                <th>Remaining Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dell XPS 13 Laptop</td>
+                <td>2</td>
+                <td>$1,299.99</td>
+                <td>$2,599.98</td>
+                <td class="status-in-stock">24</td>
+              </tr>
+              <tr>
+                <td>Samsung 32" Monitor</td>
+                <td>3</td>
+                <td>$349.99</td>
+                <td>$1,049.97</td>
+                <td class="status-in-stock">18</td>
+              </tr>
+              <tr>
+                <td>Logitech MX Master Mouse</td>
+                <td>5</td>
+                <td>$99.99</td>
+                <td>$499.95</td>
+                <td class="status-low">8</td>
+              </tr>
+              <tr>
+                <td>iPhone 15 Pro</td>
+                <td>1</td>
+                <td>$999.00</td>
+                <td>$999.00</td>
+                <td class="status-low">5</td>
+              </tr>
+              <tr>
+                <td>AirPods Pro</td>
+                <td>4</td>
+                <td>$249.99</td>
+                <td>$999.96</td>
+                <td class="status-out">0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> -->
+
+        <p style="text-align:center; font-size:14px; color:#888;">
+        &copy; 2025 Elphast. All rights reserved.
+        </p>
+
+    </div>
+    
+
+      <script>
+        function exportToExcel() {
+          const table = document.getElementById('purchaseTable');
+          const wb = XLSX.utils.table_to_book(table, {sheet: "Purchase Results"});
+          XLSX.writeFile(wb, 'Purchase_Results.xlsx');
+        }
+    
+        function exportToPDF() {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+          
+          doc.text("Purchase Results", 14, 15);
+          
+          const tableElement = document.getElementById("purchaseTable");
+          
+          doc.autoTable({
+            html: '#purchaseTable',
+            startY: 20,
+            styles: { fontSize: 10 },
+            columnStyles: { 0: { cellWidth: 50 } },
+            headStyles: { fillColor: [52, 152, 219] },
+          });
+          
+          doc.save("Purchase_Results.pdf");
+        }
+      </script>
+
+<script>
+  function exportSalesToExcel() {
+    const table = document.getElementById('makeSalesTable');
+    const wb = XLSX.utils.table_to_book(table, {sheet: "PurchSalesase Results"});
+    XLSX.writeFile(wb, "Today's_Sales.xlsx");
+  }
+
+  function exportSalesToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    doc.text("Sales Results", 14, 15);
+    
+    const tableElement = document.getElementById("makeSalesTable");
+    
+    doc.autoTable({
+      html: '#makeSalesTable',
+      startY: 20,
+      styles: { fontSize: 10 },
+      columnStyles: { 0: { cellWidth: 50 } },
+      headStyles: { fillColor: [52, 152, 219] },
+    });
+    
+    doc.save("Today's_Sales.pdf");
+  }
+</script>
+      <script>
+        lucide.createIcons();
+      </script>
+      <!-- <script>
+  const form = document.getElementById('dateFilterForm');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const selectedDate = document.getElementById('filterDate').value;
+    if (selectedDate) {
+      window.location.href = `/api/?date=${selectedDate}`;
+    }
+  });
+
+  // Optional: auto-fill today's date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('filterDate').value = today;
+</script> -->
+
+<!-- <script>
+  const form = document.getElementById('purchase-form');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault(); // Prevent form reload
+
+    const itemName = document.getElementById('purchase-item').value;
+    const quantity = document.getElementById('purchase-quantity').value;
+
+    try {
+      const response = await fetch('http://localhost:3000/api/reciept', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ itemName, quantity }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.error || 'Something went wrong!');
+        return;
+      }
+
+      // Update result section with response
+      document.getElementById('result-item').textContent = data.purchase._id || '-';
+      document.getElementById('result-quantity').textContent = data.purchase.itemName || '-';
+      document.getElementById('result-price').textContent = data.purchase.unitPrice?.toFixed(2) || '-';
+      document.getElementById('result-total').textContent = data.purchase.quantity || '-';
+      document.getElementById('result-amount').textContent = data.purchase.totalAmount?.toFixed(2) || '-';
+      document.getElementById('result-remaining').textContent = data.remainingStock ?? '-';
+
+
+    } catch (err) {
+      console.error('Error recording purchase:', err);
+      alert('Failed to record purchase.');
+    }
+  });
+</script> -->
+
+  
+</body>
+</html>
