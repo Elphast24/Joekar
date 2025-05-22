@@ -2,10 +2,22 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
+const userRoute = require('./routes/userRoutes');
+
+
 require('dotenv').config();
-const itemRoutes = require('./routes/itemRoutes');
 
 const app = express();
+
+const session = require('express-session');
+
+app.use(session({
+  secret: 'joekarSecretKey', // You can use dotenv for this too
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Set to true only if using HTTPS
+}));
+
 
 // Middleware to parse URL-encoded form data (must come before routes)
 app.use(express.urlencoded({ extended: true }));
@@ -18,6 +30,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 
 // API routes
+app.use('/', userRoute); // Routes starting from /
 app.use('/api', routes);
 // Routes
 // app.use('api/', itemRoutes);

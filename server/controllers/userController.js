@@ -1,29 +1,34 @@
 // controllers/userController.js
-const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const User = require('../models/userModel');
+const path = require('path');
 
-exports.login = async (req, res) => {
+exports.loginPage = (req, res) => {
+  const loginPath = path.join(__dirname, '../../client/login.html');
+  res.sendFile(loginPath);
+};
+
+exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Find user by username
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Compare entered password with hashed password
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Success - log in
-    res.status(200).json({ message: `Login successful! Welcome, ${username}` });
-  } catch (error) {
-    console.error('Login error:', error);
+    req.session.user = user.username; // Save user in session
+    res.redirect('/api/');
+
+  } catch (err) {
+    console.error('Login error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 };

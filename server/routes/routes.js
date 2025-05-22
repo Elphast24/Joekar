@@ -15,8 +15,8 @@ const { homepage } = require('../controllers/itemController');
 // router.get('/', homeController.homepage);
 
 // User Routes
-router.post('/users', userController.createUser);  // POST /api/users
-router.get('/users', userController.getUsers);    // GET /api/users
+// router.post('/users', userController.createUser);  // POST /api/users
+// router.get('/users', userController.getUsers);    // GET /api/users
 
 // Item Routes
 router.post('/', itemController.createItem);  // POST /api/items
@@ -29,7 +29,6 @@ router.post('/purchases', purchaseController.createPurchase);  // POST /api/purc
 // console.log(itemController.homepage);
 router.get('/', tablesController.homepage);
 
-router.post('/login', userController.login);
 
 // router.get('/', purchaseController.salesHomepage);
 
