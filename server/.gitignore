@@ -4,7 +4,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-store/
-package-lock.json # If you're using Yarn and don't want to commit package-lock.json
+package-lock.json 
+# If you're using Yarn and don't want to commit package-lock.json
 # or yarn.lock # If you're using npm and don't want to commit yarn.lock
 
 # Build artifacts
