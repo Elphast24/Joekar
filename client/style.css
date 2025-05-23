@@ -231,10 +231,24 @@ header h1 {
     width: 90%;
 }
 
+@media (max-width: 425px) {
+#makeSales{
+    width: 90%;
+}
+#makeSales table{
+    overflow-x: scroll;
+}
+
+.card{
+    width: 95%;
+}
+}
+
 .content-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    overflow-x: scroll;
 }
 
 .card {
