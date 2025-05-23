@@ -3,20 +3,20 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "start": "node index.js",
-  "dev": "nodemon server/index.js",
-  "lint": "eslint .",
-  "format": "prettier --write .",
-  "test": "echo \"No tests specified\" && exit 0"
-}
-,
+    "start": "node index.js",
+    "dev": "nodemon server/index.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "mongoose": "^7.0.0",
     "bcrypt": "^6.0.0",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "express-session": "^1.18.1"
+    "express-session": "^1.18.1",
+    "mongoose": "^7.0.0"
   }
 }
