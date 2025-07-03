@@ -15,13 +15,13 @@ exports.loginUser = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'Username not found' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.status(401).json({ message: 'Invalid Passwords' });
     }
 
     req.session.user = user.username; // Save user in session
