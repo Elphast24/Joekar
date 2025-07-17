@@ -52,7 +52,7 @@
             <!-- Add Item Section -->
             <div class="card" id="addItem">
                 <h2 class="card-title">Add New Item</h2>
-                <form id="add-item-form" action="https://joekar.onrender.com/api/" method="POST">
+                <form id="add-item-form" action="https://quickstock-2r9a.onrender.com/api/" method="POST">
                   <div class="form-control">
                     <label class="form-label" for="item-name">Item Name</label>
                     <input type="text" class="form-input" placeholder="Enter Item name" id="item-name" name="name" required>
@@ -76,7 +76,7 @@
             <!-- Record Purchase Section -->
             <div class="card" id="recordPurchase">
                 <h2 class="card-title">Record Purchase</h2>
-                <form id="purchase-form" action="https://joekar.onrender.com/api/purchases" method="POST">
+                <form id="purchase-form" action="https://quickstock-2r9a.onrender.com/api/purchases" method="POST">
                   <div class="form-control">
                     <label class="form-label" for="purchase-item">Select Item</label>
                     <input type="text" id="purchase-item" name="itemName" placeholder="Enter item name" class="form-input" required>
@@ -93,40 +93,18 @@
                 
                 
                 
-                <!-- <div class="result-section">
-                    <h3 style="margin-bottom: 1rem; color: var(--text-dark);">Purchase Result</h3>
-                    
-                    <div class="result-item">
-                      <span class="result-label">ID:</span>
-                      <span class="result-value" id="result-item">-</span>
-                    </div>
-                    
-                    <div class="result-item">
-                      <span class="result-label">Item Name:</span>
-                      <span class="result-value" id="result-quantity">-</span>
-                    </div>
-                    
-                    <div class="result-item">
-                      <span class="result-label">Unit Price:</span>
-                      <span class="result-value" id="result-price">-</span>
-                    </div>
-                    
-                    <div class="result-item">
-                      <span class="result-label">Quantity:</span>
-                      <span class="result-value" id="result-total">-</span>
-                    </div>
-                    
-                    <div class="result-item">
-                      <span class="result-label">Total Amount:</span>
-                      <span class="result-value" id="result-amount">-</span>
-                    </div>
-                    
-                    <div class="result-item">
-                      <span class="result-label">Remaining Stock:</span>
-                      <span class="result-value" id="result-remaining">-</span>
-                    </div>
-                    
-                </div> -->
+<!-- Purchase Response Card -->
+<div id="purchase-response-card" class="card response-card" style="display: none; margin-top: 1rem;">
+  <h3 class="card-title" style="color: #0f0;">✔ Purchase Successful</h3>
+  <div class="result-item"><strong>Item:</strong> <span id="resp-itemName"></span></div>
+  <div class="result-item"><strong>Quantity:</strong> <span id="resp-quantity"></span></div>
+  <div class="result-item"><strong>Unit Price:</strong> GHS <span id="resp-unitPrice"></span></div>
+  <div class="result-item"><strong>Total Amount:</strong> GHS <span id="resp-totalAmount"></span></div>
+  <div class="result-item"><strong>Remaining Stock:</strong> <span id="resp-remaining"></span></div>
+  <div class="result-item"><strong>Purchase ID:</strong> <span id="resp-id"></span></div>
+  <div class="result-item"><strong>Date:</strong> <span id="resp-date"></span></div>
+</div>
+
             </div>
             
             <!-- Inventory Section -->
@@ -221,82 +199,6 @@
         </div>
     </div>
 
-    <!-- Results -->
-    <!-- <div class="card" style="display: none;">
-      <h2 class="card-title">Current Inventory</h2>
-        
-        <div class="export-buttons">
-          <button class="export-btn excel-btn" onclick="exportToExcel()">
-            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-              <line x1="8" y1="16" x2="16" y2="16"></line>
-              <line x1="8" y1="8" x2="11" y2="8"></line>
-            </svg>
-            Export to Excel
-          </button>
-          <button class="export-btn pdf-btn" onclick="exportToPDF()">
-            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-            </svg>
-            Export to PDF
-          </button>
-        </div>
-        
-        <div class="table-container">
-          <table id="purchaseTable">
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Total Amount</th>
-                <th>Remaining Stock</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Dell XPS 13 Laptop</td>
-                <td>2</td>
-                <td>$1,299.99</td>
-                <td>$2,599.98</td>
-                <td class="status-in-stock">24</td>
-              </tr>
-              <tr>
-                <td>Samsung 32" Monitor</td>
-                <td>3</td>
-                <td>$349.99</td>
-                <td>$1,049.97</td>
-                <td class="status-in-stock">18</td>
-              </tr>
-              <tr>
-                <td>Logitech MX Master Mouse</td>
-                <td>5</td>
-                <td>$99.99</td>
-                <td>$499.95</td>
-                <td class="status-low">8</td>
-              </tr>
-              <tr>
-                <td>iPhone 15 Pro</td>
-                <td>1</td>
-                <td>$999.00</td>
-                <td>$999.00</td>
-                <td class="status-low">5</td>
-              </tr>
-              <tr>
-                <td>AirPods Pro</td>
-                <td>4</td>
-                <td>$249.99</td>
-                <td>$999.96</td>
-                <td class="status-out">0</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div> -->
-
         <p style="text-align:center; font-size:14px; color:#888;">
         &copy; 2025 QuickStock. All rights reserved.
         </p>
@@ -360,6 +262,49 @@
       <script>
         lucide.createIcons();
       </script>
+
+
+
+<script>
+  document.getElementById('purchase-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+  
+    const itemName = document.getElementById('purchase-item').value;
+    const quantity = document.getElementById('purchase-quantity').value;
+  
+    try {
+      const response = await fetch('https://quickstock-2r9a.onrender.com/api/purchases', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ itemName, quantity })
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        alert(data.error || 'Purchase failed!');
+        return;
+      }
+  
+      const purchase = data.purchase;
+  
+      document.getElementById('resp-itemName').textContent = purchase.itemName;
+      document.getElementById('resp-quantity').textContent = purchase.quantity;
+      document.getElementById('resp-unitPrice').textContent = purchase.unitPrice.toFixed(2);
+      document.getElementById('resp-totalAmount').textContent = purchase.totalAmount.toFixed(2);
+      document.getElementById('resp-remaining').textContent = purchase.remaining;
+      document.getElementById('resp-id').textContent = purchase._id;
+      document.getElementById('resp-date').textContent = new Date(purchase.purchaseDate).toLocaleString();
+  
+      // Show the card
+      document.getElementById('purchase-response-card').style.display = 'block';
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Server error. Please try again.');
+    }
+  });
+  </script>
+  
       <!-- <script>
   const form = document.getElementById('dateFilterForm');
 

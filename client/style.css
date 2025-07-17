@@ -301,6 +301,20 @@ header h1 {
     box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
 }
 
+.response-card {
+    background: #111;
+    color: #fff;
+    padding: 1rem;
+    border: 1px solid #333;
+    border-left: 4px solid #0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,255,0,0.1);
+  }
+  .response-card .result-item {
+    margin-bottom: 8px;
+  }
+  
+
 select.form-input {
     background-color: white;
     cursor: pointer;

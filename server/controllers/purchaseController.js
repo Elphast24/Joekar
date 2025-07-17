@@ -11,12 +11,12 @@ exports.createPurchase = async (req, res) => {
     const item = await Item.findOne({ name: itemName });
 
     if (!item) {
-      return res.status(404).json({ error: `Item '${itemName}' not found in inventory.` });
+      return res.status(404).json({ error: `Item '${itemName}' not found in inventory.` }).redirect('/api');
     }
 
     // Check if enough stock is available
     if (item.stock < quantity) {
-      return res.status(400).json({ error: `Only ${item.stock} units of '${itemName}' available.` });
+      return res.status(400).json({ error: `Only ${item.stock} units of '${itemName}' available.` }).redirect('/api');
     }
 
     // Update stock
@@ -46,11 +46,11 @@ exports.createPurchase = async (req, res) => {
       message: 'Purchase successful',
       purchase: newPurchase,
       ...(deletionMessage && { deleted: deletionMessage })
-    });
+    }).redirect('/api');
 
   } catch (err) {
     console.error('Error creating purchase:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error' }).redirect('/api');;
   }
 };
 
