@@ -302,13 +302,13 @@ header h1 {
 }
 
 .response-card {
-    background: #111;
-    color: #fff;
+    background: #fff;
+    color: #343a40;
     padding: 1rem;
     border: 1px solid #333;
-    border-left: 4px solid #0f0;
+    border-left: 4px solid #3a56d4;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,255,0,0.1);
+    box-shadow: 0 0 10px rgba(24, 0, 243, 0.1);
   }
   .response-card .result-item {
     margin-bottom: 8px;
