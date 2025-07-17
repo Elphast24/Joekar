@@ -4,7 +4,7 @@ async function showAdd() {
     const addMenuEl = document.getElementById('addItem');
     const menuEl = document.getElementById('contain');
   
-    const addMenus = window.getComputedStyle(addMenuEl).display;
+    const addMenu = window.getComputedStyle(addMenuEl).display;
     const menu = window.getComputedStyle(menuEl).display;
   
     console.log(menu, addMenu);
